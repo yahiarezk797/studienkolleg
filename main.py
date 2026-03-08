@@ -3,11 +3,22 @@ from functions import *
 
 
 def main():
-    name = input("Name: ")
-    pwd = input("Password: ")
-    ammount = input("ammount: ")
-    print(creat_an_account(name, pwd, ammount))
-
+    print("Willkommen!")
+    print("1: Anmelden")
+    print("2: Konto eröffnen")
+    x = int(input("? "))
+    if x == 1:
+        id = input("ID: ")
+        name = input("Name: ")
+        pwd = input("Passwort: ")
+        acc = log_in(id, name, pwd)
+        print(f"Hallo, Frau/Herr {acc.name}\n")
+        
+    else:
+        name = input("Name: ")
+        pwd = input("Passwort: ")
+        amount = input("Betrag: ") 
+        print(creat_an_account(name, pwd, amount))
 
 
 if __name__ == "__main__":
