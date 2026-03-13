@@ -13,7 +13,14 @@ def main():
         pwd = input("Passwort: ")
         acc = log_in(id, name, pwd)
         print(f"Hallo, Frau/Herr {acc.name}\n")
-        
+        print("1: Pull money")
+        print("2: Transfer money")
+        print("3: Put money")
+        print("4: See account's history")
+        y = int(input("? "))
+        if y == 1:
+            amount = int(input("Betrag: "))
+            pull_money(acc, amount)
     else:
         name = input("Name: ")
         pwd = input("Passwort: ")
