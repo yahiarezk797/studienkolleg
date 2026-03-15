@@ -1,44 +1,44 @@
-from accounts import *
-from functions import *
+from konten import *
+from funktionen import *
 
 
 def main():
-    print("Welcome!")
-    print("1: Login")
-    print("2: Open Account")
+    print("Willkommen!")
+    print("1: Anmelden")
+    print("2: Konto eröffnen")
     x = int(input("? "))
     if x == 1:
         id = input("ID: ")
         name = input("Name: ")
         pwd = input("Passwort: ")
-        acc = log_in(id, name, pwd)
-        print(acc)
-        print(f"Hallo, Frau/Herr {acc.name}\n")
-        print(f"Money: {acc.money}")
-        print("1: Pull money")
-        print("2: Transfer money")
-        print("3: Put money")
-        print("4: See account's history")
+        konto = anmelden(id, name, pwd)
+        print(konto)
+        print(f"Hallo, Frau/Herr {konto.name}\n")
+        print(f"Geld: {konto.geld}")
+        print("1: Geld abheben")
+        print("2: Geld überweisen")
+        print("3: Geld legen")
+        print("4: Kontoverlauf schauen")
         y = int(input("? "))
         if y == 1:
-            amount = int(input("Amount: "))
-            pull_money(acc, amount)
+            betrag = int(input("Betrag: "))
+            geld_abheben(konto, betrag)
         elif y == 2:
-            amount = int(input("Amount: "))
+            betrag = int(input("Betrag: "))
             id2 = int(input("ID: "))
-            acc2 = id_to_account(id2)
-            transfer_money(acc, acc2, amount)
+            konto2 = id_to_konto(id2)
+            geld_überweisen(konto, konto2, betrag)
         elif y == 3:
-            amount = int(input("Amount: "))
-            put_money(acc, amount)
+            betrag = int(input("Betrag: "))
+            geld_legen(konto, betrag)
         elif y == 4:
-            see_history(acc)
+            kontoverlauf_schauen(konto)
 
     else:
         name = input("Name: ")
         pwd = input("Passwort: ")
-        amount = input("Amount: ") 
-        print(creat_an_account(name, pwd, amount))
+        betrag = input("Betrag: ") 
+        print(konto_eröffnen(name, pwd, betrag))
 
 
 if __name__ == "__main__":
