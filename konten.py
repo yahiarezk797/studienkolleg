@@ -1,6 +1,3 @@
-from argon2 import PasswordHasher
-
-ph = PasswordHasher()
 
 
 class Konten:
@@ -9,7 +6,7 @@ class Konten:
             raise ValueError("Das Betrag kann nicht negativ sein")
         self.id = int(id)
         self.name = name
-        self.pwd = ph.hash(pwd)
+        self.pwd = pwd
         self.geld = int(geld)
 
     def __eq__(self, konto):

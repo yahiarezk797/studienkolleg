@@ -1,5 +1,8 @@
 from konten import *
 from funktionen import *
+from argon2 import PasswordHasher
+
+ph = PasswordHasher()
 
 
 def main():
@@ -36,7 +39,7 @@ def main():
 
     else:
         name = input("Name: ")
-        pwd = input("Passwort: ")
+        pwd = ph.hash(input("Passwort: "))
         betrag = input("Betrag: ") 
         print(konto_eröffnen(name, pwd, betrag))
 

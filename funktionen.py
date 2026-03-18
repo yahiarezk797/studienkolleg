@@ -3,7 +3,7 @@ from pathlib import *
 import csv
 from konten import *
 from datetime import datetime
-
+from main import ph
 
 def id_gen():
     return len(os.listdir("./konten")) - 1
@@ -99,7 +99,7 @@ def geld_überweisen(konto1, konto2, betrag):
         if betrag > konto1.geld:
             print("Ihr Geld ist nicht genug!")
             return
-        konto1.trans(konto2, betrag)
+        konto1.überweisen(konto2, betrag)
         zeit = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         row = [f"Geld überweisen von {konto1.id} zu {konto2.id}", zeit, betrag]
         verlauf_ändarn(konto1, row)
@@ -124,7 +124,7 @@ def id_to_konto(id):
         with open(f"./konten/{id}/info.csv", "r") as f:
             reader = csv.DictReader(f)
             data = list(reader)[0]
-        konto = Konten(data["ID"], data["Name"], data["Password"], data["Geld"])
+        konto = Konten(data["ID"], data["Name"], data["Passwort"], data["Geld"])
     except Exception as e:
         print(e)
     return konto
