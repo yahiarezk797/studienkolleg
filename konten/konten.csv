@@ -2,3 +2,5 @@ ID,Name,Passwort,Geld
 0,Yahia,"$argon2id$v=19$m=102400,t=2,p=8$JmI58ql/+hhms+yfR+67Wg$qMJp0H2Ft8UBHKSvMnFgmg",100
 1,Osama,"$argon2id$v=19$m=102400,t=2,p=8$2fCQte1S2ukrFslBjevhlQ$3FS//3MWNTcTadT59vh8fw",11000
 2,Sama,"$argon2id$v=19$m=102400,t=2,p=8$PpNko939taXgXiXMMMHI7A$2RPC88T3TO7zOyzeGVjn0w",21100
+3,nobody,"$argon2id$v=19$m=102400,t=2,p=8$ihobjNUZkFkSSu7zeuNilw$e+n5v0sfvcuhSUKDiWLgtA",200000000000
+4,xd,"$argon2id$v=19$m=102400,t=2,p=8$Tzd36mqcLFrx+206y0ofig$tR6EdgBk+ph5/aa3Sx+8Jw",23

@@ -1,0 +1,2 @@
+ID,Name,Passwort,Geld
+3,nobody,"$argon2id$v=19$m=102400,t=2,p=8$ihobjNUZkFkSSu7zeuNilw$e+n5v0sfvcuhSUKDiWLgtA",200000000000
