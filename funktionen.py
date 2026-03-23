@@ -87,7 +87,7 @@ def geld_legen(konto, betrag):
     try:
         konto.add(betrag)
         zeit = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        row = ["Geld legen", zeit, betrag]
+        row = ["Geld einzahlen", zeit, betrag]
         verlauf_ändarn(konto, row)
         kontos_ändern(konto)
         print("Erfolgreich!")
