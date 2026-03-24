@@ -6,3 +6,4 @@ ID,Name,Passwort,Geld
 4,xd,"$argon2id$v=19$m=102400,t=2,p=8$Tzd36mqcLFrx+206y0ofig$tR6EdgBk+ph5/aa3Sx+8Jw",23
 5,Pranv,"$argon2id$v=19$m=102400,t=2,p=8$Br9iFHuMxoR6t1WK7A2EWQ$AMSsgB2yrK2W9U7jAPs+/w",119999999998000
 6,xd2,"$argon2id$v=19$m=102400,t=2,p=8$RO4goODqINBxodDFpYf0MA$9XydeHT80SVGBW1DLkc4EA",2000
+7,BIGDICKJOE,"$argon2id$v=19$m=102400,t=2,p=8$04J3tDI/ywPJDLnrGmXM7g$pVNluM/40DkWhUyx+hqaLw",10000
