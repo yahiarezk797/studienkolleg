@@ -45,6 +45,7 @@ def main():
                         break
                     else:
                         print("Ungültige Anfrage!")
+                    print("\n\n")
                     
 
             elif x == "2":
@@ -67,6 +68,7 @@ def main():
                 print("Ungültige Anfrage!")
         except Exception as e:
             pass
+        print("\n\n")
 
 
 if __name__ == "__main__":
