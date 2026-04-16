@@ -1,6 +1,7 @@
 from konten import *
 from funktionen import *
 from argon2 import PasswordHasher
+from getpass import getpass
 
 ph = PasswordHasher()
 
@@ -16,7 +17,7 @@ def main():
             if x == "1":
                 id = input("ID: ")
                 name = input("Name: ")
-                pwd = input("Passwort: ")
+                pwd = getpass("Passwort: ")
                 konto = anmelden(id, name, pwd)
                 print(konto)
                 print(f"Hallo, Frau/Herr {konto.name}\n")
@@ -50,9 +51,9 @@ def main():
 
             elif x == "2":
                 name = input("Name: ")
-                pwd1 = input("Passwort: ")
+                pwd1 = getpass("Passwort: ")
                 while True:
-                    pwd2 = input("Passwort bestätigen: ")
+                    pwd2 = getpass("Passwort bestätigen: ")
                     if pwd1 == pwd2:
                         break
                     print("Paswort nicht gleich!")
