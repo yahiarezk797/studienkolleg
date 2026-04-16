@@ -1,13 +1,17 @@
 
 
 class Konten:
-    def __init__(self, id, name,pwd, geld):
+    def __init__(self, id, name,pwd, geld, email, grenzwert=30000):
         if int(geld) < 0:
             raise ValueError("Das Betrag kann nicht negativ sein")
+        if grenzwert > 30000:
+            raise ValueError("Grenzwert soll niedriger als 30000 sein")
         self.id = int(id)
         self.name = name
         self.pwd = pwd
         self.geld = int(geld)
+        self.email = email
+        self.grenzwert = grenzwert
 
     def __eq__(self, konto):
         return (self.pwd == konto.pwd and self.id == konto.id and self.name == konto.name)
@@ -36,3 +40,6 @@ class Konten:
     
     def to_dict(self):
         return {"ID": self.id ,"Name": self.name, "Passwort": self.pwd, "Geld": self.geld}
+    
+    def to_dict2(self):
+        return {"E-Mail": self.email, "Grenzwert": self.grenzwert}

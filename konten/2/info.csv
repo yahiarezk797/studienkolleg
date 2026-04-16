@@ -1,2 +1,2 @@
 ID,Name,Passwort,Geld
-2,Sama,"$argon2id$v=19$m=102400,t=2,p=8$PpNko939taXgXiXMMMHI7A$2RPC88T3TO7zOyzeGVjn0w",21100
+2,usama,"$argon2id$v=19$m=65536,t=3,p=4$pLEaOAb7v66YmYoy/pbz9Q$7ASaHyZHsO+VdxU/m/dig6MNOwF1U27PaKTIQe+zeqE",9000

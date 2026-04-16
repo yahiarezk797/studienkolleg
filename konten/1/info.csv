@@ -1,2 +1,2 @@
 ID,Name,Passwort,Geld
-1,Osama,"$argon2id$v=19$m=102400,t=2,p=8$2fCQte1S2ukrFslBjevhlQ$3FS//3MWNTcTadT59vh8fw",11000
+1,Xd,"$argon2id$v=19$m=65536,t=3,p=4$4SNvguKaBFP5XEthvzox7w$UeC5BQ6XR9D4UMjqrUBsb87kJfwbWCi3rAN9eEtsNC4",20000
