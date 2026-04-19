@@ -40,7 +40,14 @@ def konto_eröffnen(name, pwd, betrag, email, grenzwert):
         return f"Erfolgreich!\nID:{id}"
     except Exception as e:
         print(e)
-    
+
+def check_passwort(hpwd, pwd):
+    try:
+        ph.verify(hpwd, pwd)
+        return True
+    except Exception:
+        return False
+
 def anmelden(id, name, pwd):
     try:
         if not os.path.exists(f"./konten/{id}"):
@@ -50,7 +57,7 @@ def anmelden(id, name, pwd):
             data = list(reader)[0]
         if name != data["Name"]:
             raise Exception("Falches Name!")
-        if not ph.verify(data["Passwort"], pwd):
+        if not check_passwort(data["Passwort"], pwd):
             raise Exception("Falches Passwort!")
         with open(f"./konten/{id}/sicherheitsinfo.csv", "r") as f:
             reader = csv.DictReader(f)
@@ -91,6 +98,10 @@ def geld_abheben(konto, betrag):
             return
         konto.pull(betrag)
         time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        if (geld_abheben_heute(konto.id, time.split(" ")[0]) + betrag) >= konto.grenzwert:
+            defrenz = konto.grenzwert - geld_abheben_heute(konto.id, time.split(" ")[0])
+            print(f"Sie können Heute nur {defrenz} abheben!")
+            return
         his = ["Geld abheben", time, betrag]
         kontos_ändern(konto)
         verlauf_ändarn(konto, his)
@@ -210,3 +221,17 @@ def passwort_ändarn(id):
 
     else:
         print("Das Code war falch!")
+
+def geld_abheben_heute(id, time):
+    with open(f"./konten/{id}/verlauf.csv", "r") as f:
+        reader = csv.reader(f)
+        rows = list(reader)
+    geld = 0
+        
+    for row in rows:
+        if row[0] != "Geld abheben":
+            continue
+        time2 = row[1].split(" ")[0]
+        if time2 == time:
+            geld += int(row[2])
+    return geld

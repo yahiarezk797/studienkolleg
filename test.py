@@ -1,3 +1,3 @@
 import funktionen
 
-funktionen.code_schicken(0, funktionen.code_gen())
+print(funktionen.Geld_abheben_heute(0, "2026-04-19"))

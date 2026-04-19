@@ -1,2 +1,2 @@
 ID,Name,Passwort,Geld
-2,usama,"$argon2id$v=19$m=65536,t=3,p=4$pLEaOAb7v66YmYoy/pbz9Q$7ASaHyZHsO+VdxU/m/dig6MNOwF1U27PaKTIQe+zeqE",9000
+2,usama,"$argon2id$v=19$m=65536,t=3,p=4$pLEaOAb7v66YmYoy/pbz9Q$7ASaHyZHsO+VdxU/m/dig6MNOwF1U27PaKTIQe+zeqE",11321
