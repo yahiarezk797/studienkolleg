@@ -5,7 +5,6 @@ from getpass import getpass
 
 ph = PasswordHasher()
 
-
 def main():
     while True:
         try:
@@ -28,7 +27,8 @@ def main():
                     print("3: Geld einzahlen")
                     print("4: Kontoverlauf schauen")
                     print("5: Passwort ändarn")
-                    print("6: Konto verlassen")
+                    print("6: Grenzen ändern")
+                    print("7: Konto verlassen")
                     y = input("? ")
                     if y == "1":
                         betrag = int(input("Betrag: "))
@@ -46,16 +46,20 @@ def main():
                     elif y == "5":
                         passwort_ändarn(konto.id)
                     elif y == "6":
+                        while True:
+                            betrag = int(input("Grenzwert: "))
+                            if betrag <= 30000:
+                                break
+                            print("Das Grenzwert soll kleiner oder gleich 30000 sein!")
+                        grenzen_ändern(konto, betrag)
+                    elif y == "7":
                         break
                     else:
                         print("Ungültige Anfrage!")
-                    print("\n\n")
-                    
-
+                    print("\n\n")                    
             elif x == "2":
                 name = input("Name: ")
                 email = input("E-Mail: ")
-                grenzwert = int(input("Grenzwert: "))
                 pwd1 = getpass("Passwort: ")
                 while True:
                     pwd2 = getpass("Passwort bestätigen: ")
@@ -65,20 +69,17 @@ def main():
                 pwd = ph.hash(pwd1)
 
                 betrag = input("Betrag: ") 
-                print(konto_eröffnen(name, pwd, betrag, email, grenzwert))
-            
+                print(konto_eröffnen(name, pwd, betrag, email))            
             elif x == "3":
                 id = int(input("ID: "))
                 passwort_ändarn(id)
             elif x == "4":
                 break
-
             else:
                 print("Ungültige Anfrage!")
         except Exception as e:
             pass
         print("\n\n")
-
 
 if __name__ == "__main__":
     main()

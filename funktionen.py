@@ -14,9 +14,9 @@ from getpass import getpass
 def id_gen():
     return len(os.listdir("./konten")) - 1
     
-def konto_eröffnen(name, pwd, betrag, email, grenzwert):
+def konto_eröffnen(name, pwd, betrag, email):
     id = id_gen()
-    konto = Konten(id, name, pwd, betrag, email, grenzwert)
+    konto = Konten(id, name, pwd, betrag, email)
     data = {"ID": konto.id, "Name": konto.name, "Passwort": konto.pwd, "Geld": konto.geld}
     data2 = {"E-Mail": konto.email, "Grenzwert": konto.grenzwert}
     try:
@@ -72,18 +72,17 @@ def verlauf_ändarn(konto, row):
             writer2 = csv.writer(f3)
             writer2.writerow(row)
 
-def kontos_ändern(konto):
+def kontos_ändern(konto, was):
     dict_konto = konto.to_dict()
-    with open(f"./konten/{konto.id}/info.csv", "w") as f:
-        fields = dict_konto.keys()
-        writer = csv.DictWriter(f, fieldnames=fields)
-        writer.writeheader()
-        writer.writerow(dict_konto)
+    konto_zum_info(dict_konto)
                            
     with open("./konten/konten.csv", "r") as f1:
         reader = csv.DictReader(f1)
         rows = list(reader)
-        rows[konto.id]["Geld"] = konto.geld
+        if was == "Geld":
+            rows[konto.id][was] = konto.geld
+        if was == "Passwort":
+            rows[konto.id][was] = konto.pwd
             
     with open("./konten/konten.csv", "w") as f2:
         fields = dict_konto.keys()
@@ -103,7 +102,7 @@ def geld_abheben(konto, betrag):
             print(f"Sie können Heute nur {defrenz} abheben!")
             return
         his = ["Geld abheben", time, betrag]
-        kontos_ändern(konto)
+        kontos_ändern(konto, "Geld")
         verlauf_ändarn(konto, his)
         print("Erfolgreich!")
     except Exception as e:
@@ -115,7 +114,7 @@ def geld_legen(konto, betrag):
         zeit = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         row = ["Geld einzahlen", zeit, betrag]
         verlauf_ändarn(konto, row)
-        kontos_ändern(konto)
+        kontos_ändern(konto, "Geld")
         print("Erfolgreich!")
     except Exception as e:
         print(e)
@@ -130,8 +129,8 @@ def geld_überweisen(konto1, konto2, betrag):
         row = [f"Geld überweisen von {konto1.id} zu {konto2.id}", zeit, betrag]
         verlauf_ändarn(konto1, row)
         verlauf_ändarn(konto2, row)
-        kontos_ändern(konto1)
-        kontos_ändern(konto2)
+        kontos_ändern(konto1, "Geld")
+        kontos_ändern(konto2, "Geld")
         print("Erfolgreich!")
     except Exception as e:
         print(e)
@@ -184,11 +183,10 @@ def email_schicken(email,sub, text):
     
     print("✅ Email ist erfolgreich geschickt!")
 
-
 def passwort_ändarn(id):
     code = code_gen()
     code_schicken(id, code)
-    x = int(input("Code: "))
+    x = int(input("Code: ").strip())
     if x == code:
         konto = id_to_konto(id)
         pwd1 = getpass("Passwort: ")
@@ -200,22 +198,10 @@ def passwort_ändarn(id):
         pwd = ph.hash(pwd1)
         konto.pwd = pwd
         dict_konto = konto.to_dict()
-        with open(f"./konten/{konto.id}/info.csv", "w") as f:
-            fields = dict_konto.keys()
-            writer = csv.DictWriter(f, fieldnames=fields)
-            writer.writeheader()
-            writer.writerow(dict_konto)
+        konto_zum_info(dict_konto)
                             
-        with open("./konten/konten.csv", "r") as f1:
-            reader = csv.DictReader(f1)
-            rows = list(reader)
-            rows[konto.id]["Passwort"] = konto.pwd
-                
-        with open("./konten/konten.csv", "w") as f2:
-            fields = dict_konto.keys()
-            writer = csv.DictWriter(f2, fieldnames=fields)
-            writer.writeheader()
-            writer.writerows(rows)
+        kontos_ändern(konto, "Passwort")
+        
         
         print("Erfolgreich!")
 
@@ -226,8 +212,7 @@ def geld_abheben_heute(id, time):
     with open(f"./konten/{id}/verlauf.csv", "r") as f:
         reader = csv.reader(f)
         rows = list(reader)
-    geld = 0
-        
+    geld = 0      
     for row in rows:
         if row[0] != "Geld abheben":
             continue
@@ -235,3 +220,22 @@ def geld_abheben_heute(id, time):
         if time2 == time:
             geld += int(row[2])
     return geld
+
+def grenzen_ändern(konto, betrag):
+    konto.grenzwert = betrag
+    konto_zum_sicherheitsinfo(konto)
+
+def konto_zum_sicherheitsinfo(konto):
+    row = konto.to_dict2()
+    with open(f"./konten/{konto.id}/sicherheitsinfo.csv", "w") as f2:
+        fields = row.keys()
+        writer = csv.DictWriter(f2, fieldnames=fields)
+        writer.writeheader()
+        writer.writerow(row)
+
+def konto_zum_info(dict_konto):
+    with open(f"./konten/{dict_konto["ID"]}/info.csv", "w") as f:
+            fields = dict_konto.keys()
+            writer = csv.DictWriter(f, fieldnames=fields)
+            writer.writeheader()
+            writer.writerow(dict_konto)
