@@ -48,6 +48,9 @@ def main():
                     elif y == "6":
                         while True:
                             betrag = int(input("Grenzwert: "))
+                            if betrag < 0:
+                                print("Das Betrag kann nicht negativ sein")
+                                continue
                             if betrag <= 30000:
                                 break
                             print("Das Grenzwert soll kleiner oder gleich 30000 sein!")

@@ -11,32 +11,26 @@ import ssl
 import random
 from getpass import getpass
 
+
 def id_gen():
     return len(os.listdir("./konten")) - 1
     
 def konto_eröffnen(name, pwd, betrag, email):
     id = id_gen()
     konto = Konten(id, name, pwd, betrag, email)
-    data = {"ID": konto.id, "Name": konto.name, "Passwort": konto.pwd, "Geld": konto.geld}
-    data2 = {"E-Mail": konto.email, "Grenzwert": konto.grenzwert}
+    data = konto.to_dict()
     try:
         os.mkdir(os.path.join(f"./konten/{id}"))
-        with open(f"./konten/{id}/info.csv", "w") as f:
-            fields = data.keys()
-            writer = csv.DictWriter(f, fieldnames=fields)
-            writer.writeheader()
-            writer.writerow(data)
+        konto_zum_info(data)
         with open("./konten/konten.csv", "a") as file:
             fields = data.keys()
             writer = csv.DictWriter(file, fieldnames=fields)
             if id == 0:
                 writer.writeheader()
             writer.writerow(data)
-        with open(f"./konten/{id}/sicherheitsinfo.csv", "w") as s:
-            fields = data2.keys()
-            writer = csv.DictWriter(s, fieldnames=fields)
-            writer.writeheader()
-            writer.writerow(data2)
+        konto_zum_sicherheitsinfo(konto)
+        with open(f"./konten/{id}/verlauf.csv", "w") as f1:
+            pass
         return f"Erfolgreich!\nID:{id}"
     except Exception as e:
         print(e)
@@ -95,12 +89,15 @@ def geld_abheben(konto, betrag):
         if betrag > konto.geld:
             print("Ihr Geld ist nicht genug!")
             return
-        konto.pull(betrag)
         time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        if (geld_abheben_heute(konto.id, time.split(" ")[0]) + betrag) >= konto.grenzwert:
+        if (geld_abheben_heute(konto.id, time.split(" ")[0]) + betrag) > konto.grenzwert:
             defrenz = konto.grenzwert - geld_abheben_heute(konto.id, time.split(" ")[0])
+            if defrenz <= 0:
+                print("Sie können Heute kein Geld abheben!")
+                return
             print(f"Sie können Heute nur {defrenz} abheben!")
             return
+        konto.pull(betrag)
         his = ["Geld abheben", time, betrag]
         kontos_ändern(konto, "Geld")
         verlauf_ändarn(konto, his)

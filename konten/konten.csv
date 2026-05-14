@@ -1,5 +1,4 @@
 ID,Name,Passwort,Geld
-0,Yahia,"$argon2id$v=19$m=65536,t=3,p=4$eC3UosZD47WdNEfoZjDl1A$XfLkqV5AVna/46OpN3amsLvNhTyXKxo61XcmbZiEURc",99999000
-1,Xd,"$argon2id$v=19$m=65536,t=3,p=4$4SNvguKaBFP5XEthvzox7w$UeC5BQ6XR9D4UMjqrUBsb87kJfwbWCi3rAN9eEtsNC4",20000
-2,usama,"$argon2id$v=19$m=65536,t=3,p=4$pLEaOAb7v66YmYoy/pbz9Q$7ASaHyZHsO+VdxU/m/dig6MNOwF1U27PaKTIQe+zeqE",11321
-3,xd,"$argon2id$v=19$m=65536,t=3,p=4$nK6JdVN3Qi0ekcoljkApog$R/CYTv4P4d450ZDRrAbzHC3xonpHODo7doMT20MUWS0",23321
+0,Yahia,"$argon2id$v=19$m=65536,t=3,p=4$RW8RKQJqIS1IUtcWCl2xKQ$TboFilUvTwvDA3rCW/A/bNyPPwnNI+dlH//z7tJavmo",180010
+1,xd,"$argon2id$v=19$m=65536,t=3,p=4$zOG2B2NUNv3npWLciXpOZQ$/1Svstr84Gszf1WqRPk0mAOoQI0oT+fqVRBme9RC4PM",22222
+2,omar,"$argon2id$v=19$m=65536,t=3,p=4$nJX+7hXyxGgOEe796ogf4g$QyMqu9fBsgSAKzVGpBRHdb1Fi+wSI7FDXP5g6HXcLuo",99999999990
