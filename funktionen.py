@@ -10,7 +10,7 @@ from email.mime.multipart import MIMEMultipart
 import ssl
 import random
 from getpass import getpass
-
+import konstanten
 
 def id_gen():
     return len(os.listdir("./konten")) - 1
@@ -89,16 +89,16 @@ def geld_abheben(konto, betrag):
         if betrag > konto.geld:
             print("Ihr Geld ist nicht genug!")
             return
-        time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        if (geld_abheben_heute(konto.id, time.split(" ")[0]) + betrag) > konto.grenzwert:
-            defrenz = konto.grenzwert - geld_abheben_heute(konto.id, time.split(" ")[0])
+        zeit = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        if (geld_abheben_heute(konto.id, zeit.split(" ")[0]) + betrag) > konto.grenzwert:
+            defrenz = konto.grenzwert - geld_abheben_heute(konto.id, zeit.split(" ")[0])
             if defrenz <= 0:
                 print("Sie können Heute kein Geld abheben!")
                 return
             print(f"Sie können Heute nur {defrenz} abheben!")
             return
         konto.pull(betrag)
-        his = ["Geld abheben", time, betrag]
+        his = ["Geld abheben", zeit, betrag]
         kontos_ändern(konto, "Geld")
         verlauf_ändarn(konto, his)
         print("Erfolgreich!")
@@ -205,7 +205,7 @@ def passwort_ändarn(id):
     else:
         print("Das Code war falch!")
 
-def geld_abheben_heute(id, time):
+def geld_abheben_heute(id, zeit):
     with open(f"./konten/{id}/verlauf.csv", "r") as f:
         reader = csv.reader(f)
         rows = list(reader)
@@ -214,7 +214,7 @@ def geld_abheben_heute(id, time):
         if row[0] != "Geld abheben":
             continue
         time2 = row[1].split(" ")[0]
-        if time2 == time:
+        if time2 == zeit:
             geld += int(row[2])
     return geld
 
@@ -236,3 +236,13 @@ def konto_zum_info(dict_konto):
             writer = csv.DictWriter(f, fieldnames=fields)
             writer.writeheader()
             writer.writerow(dict_konto)
+
+def angeboten():
+    random_gechäfte = random.sample(konstanten.gechäfte, 5)
+    ang = random.choices(range(5, 26), k=5)
+    text = ""
+    for i in range(5):
+        text += f"{random_gechäfte[i]}: -{ang[i]}%\n\n"
+    return text
+def angeboten_zeigen():
+    print(angeboten())

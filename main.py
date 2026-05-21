@@ -3,12 +3,15 @@ from funktionen import *
 from argon2 import PasswordHasher
 from getpass import getpass
 
+
 ph = PasswordHasher()
+
 
 def main():
     while True:
         try:
             print("Willkommen!")
+            print("XD-Bank")
             print("1: Anmelden")
             print("2: Konto eröffnen")
             print("3: Passwort vergessen")
@@ -17,18 +20,29 @@ def main():
             if x == "1":
                 id = input("ID: ")
                 name = input("Name: ")
-                pwd = getpass("Passwort: ")
-                konto = anmelden(id, name, pwd)
+                versuchen = 0
+                while True:
+                    versuchen += 1
+                    pwd = getpass("Passwort: ")
+                    konto = anmelden(id, name, pwd)
+                    if type(konto) == Konten:
+                        versuchen = 0
+                        break
+                    if versuchen == 3:
+                        konto = id_to_konto(id)
+                        email_schicken(konto.email, "Wichtige Sicherheitsbenachrichtigung für Ihr Konto", konstanten.versuchen_text)
+                        return                
                 print(f"Hallo, Frau/Herr {konto.name}\n")
                 while True:
                     print(f"Geld: {konto.geld}")
                     print("1: Geld abheben")
                     print("2: Geld überweisen")
                     print("3: Geld einzahlen")
-                    print("4: Kontoverlauf schauen")
+                    print("4: Kontoverlauf zeigen")
                     print("5: Passwort ändarn")
-                    print("6: Grenzen ändern")
-                    print("7: Konto verlassen")
+                    print("6: Grenzen des Abhebens ändern")
+                    print("7: Die Angebote zeigen")
+                    print("8: Konto verlassen")
                     y = input("? ")
                     if y == "1":
                         betrag = int(input("Betrag: "))
@@ -56,6 +70,8 @@ def main():
                             print("Das Grenzwert soll kleiner oder gleich 30000 sein!")
                         grenzen_ändern(konto, betrag)
                     elif y == "7":
+                        angeboten_zeigen()
+                    elif y == "8":
                         break
                     else:
                         print("Ungültige Anfrage!")
@@ -80,7 +96,7 @@ def main():
                 break
             else:
                 print("Ungültige Anfrage!")
-        except Exception as e:
+        except Exception:
             pass
         print("\n\n")
 
